@@ -12,15 +12,36 @@
 // document.querySelectorAll("button").addEventListener("click",function(){
 //     alert("I got clicked");
 // });
-const soundList=["tom-1","tom-2","tom-3","tom-4","snare","crash","kick-bass"];
+
+//Detecting button Press
 
 for (var i=0 ; i<document.querySelectorAll(".drum").length ;i++){
    
   document.querySelectorAll(".drum")[i].addEventListener("click", function(){
     var buttonInnerHTML=this.innerHTML;
-   switch (buttonInnerHTML) {
+    makeSound(buttonInnerHTML);
+    buttonAnimation(buttonInnerHTML);
+ 
+ }); 
+} 
+
+
+//Detecting keyboard Press
+
+document.addEventListener("keypress",function(event){
+ makeSound(event.key);
+ buttonAnimation(event.key);
+
+});
+
+ function makeSound(key){
+  switch (key) {
     case "w":
-      var audio=new Audio("/sounds/tom-1.mp3");
+
+      var audio=new Audio('/sounds/tom-1.mp3');
+      document.addEventListener("keypress",function(buttonInnerHTML){
+
+      });
       audio.play();
       break;
     case "a":
@@ -51,9 +72,18 @@ for (var i=0 ; i<document.querySelectorAll(".drum").length ;i++){
     default:
       break;
    }
-      }); 
-} 
 
+
+ } 
+
+function buttonAnimation(currentKey){
+    var activeButton = document.querySelector("." +currentKey);
+    activeButton.classList.add("pressed");
+
+setTimeout(function(){
+    activeButton.classList.remove("pressed");
+}, 100);
+}
 // let audio= new Audio("/sounds/"+soundList[i]+".mp3");
 // document.querySelectorAll(".drum")[i].addEventListener("click", function(){
 //     audio.play();
